@@ -1,7 +1,12 @@
 pipeline {
-  agent any
+  agent {
+    docker {
+      image 'nodejs-aws'
+    }
+
+  }
   stages {
-    stage('Plan_Infrastructure') {
+    stage('Build') {
       steps {
         //account AWS use to test plan
         withAWS(credentials: 'jenkins-test', region: 'ap-southeast-1') {
