@@ -6,4 +6,5 @@ pipeline {
           deployEBNodeJS('test', 'test-dev', 'dev', 'glue-terraform', 'testprefix', 'ap-southeast-1')
         }
     }
+    }
   }
