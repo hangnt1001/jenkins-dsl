@@ -18,8 +18,7 @@ pipeline {
       steps {
         //account AWS use to test plan
         withAWS(credentials: 'jenkins-test', region: 'ap-southeast-1') {
-          deployEBNodeJS(APPNAME, ENVNAME, STATE, S3BUCKET, S3KEYPREFIX, REGION)
-          deployEBNodeJS(EB_APP_NAME: 'test', EB_ENV_NAME: 'test-dev', state: 'dev', s3Bucket: 'glue-terraform', s3KeyPrefix: 'testprefix', REGION: 'ap-southeast-1'
+          deployEBNodeJS(EB_APP_NAME: 'test', EB_ENV_NAME: 'test-dev', state: 'dev', s3Bucket: 'glue-terraform', s3KeyPrefix: 'testprefix', REGION: 'ap-southeast-1')
         }
       }
     }
