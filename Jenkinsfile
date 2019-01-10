@@ -12,8 +12,8 @@ pipeline {
   environment {
       USER_ID = '5EE0E3C-146Z-7646-CCEE-A0EDX2760869'
       REPOS = '/home/test'
-      ENVS = ['dev','qa','staging']
-      SCHEMA_NAME = ['test.json','test2.json']
+      ENVS = "['dev','qa','staging']"
+      SCHEMA_NAME = "['test.json','test2.json']"
   }
   stages {
     stage('Deploy EB NodeJS') {
