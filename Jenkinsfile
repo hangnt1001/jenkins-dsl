@@ -1,36 +1,44 @@
 pipeline {
   agent {
     docker {
-      image 'nodejs-aws'
+      image 'aws-assume-role'
     }
 
   }
   stages {
-    stage('Build & Deploy Dev Environment') {
-      environment {
-        APPNAME = "test"
-        ENVNAME = "test-dev"
-        STATE = "dev"
-        S3BUCKET = "glue-terraform"
-        S3KEYPREFIX = "testprefix"
-        REGION = "ap-southeast-1"
+    stage('Deploy EB NodeJS') {
+      when {
+        branch 'master'
       }
-      steps {
-        //account AWS use to test plan
-        withAWS(credentials: 'jenkins-test', region: 'ap-southeast-1') {
-          deployEBNodeJS(EB_APP_NAME: 'test', EB_ENV_NAME: 'test-dev', state: 'dev', s3Bucket: 'glue-terraform', s3KeyPrefix: 'testprefix', REGION: 'ap-southeast-1')
+      parallel {
+        stage('Deploy google-develop'){
+          steps {
+            //deploy google-develop
+            withAWS(credentials: 'jenkins-test', region: 'ap-southeast-1') {
+              deployEBNodeJS(EB_APP_NAME: 'google-develop', EB_ENV_NAME: 'google-dev', state: 'dev', s3Bucket: 'glue-terraform', s3KeyPrefix: 'googleprefix', REGION: 'ap-southeast-1')
+            }
+          }
+        }
+        stage('Deploy yahoo-develop'){
+          steps {
+            //deploy yahoo-develop
+            withAWS(credentials: 'jenkins-test', region: 'ap-southeast-1') {
+              deployEBNodeJS(EB_APP_NAME: 'yahoo-develop', EB_ENV_NAME: 'yahoo-dev', state: 'dev', s3Bucket: 'glue-terraform', s3KeyPrefix: 'yahooprefix', REGION: 'ap-southeast-1')
+            }
+          }
+        }
+        stage('Deploy apple-develop'){
+             //deploy apple-develop
+              withAWS(credentials: 'jenkins-test', region: 'ap-southeast-1') {
+                deployEBNodeJS(EB_APP_NAME: 'apple-develop', EB_ENV_NAME: 'apple-dev', state: 'dev', s3Bucket: 'glue-terraform', s3KeyPrefix: 'appleprefix', REGION: 'ap-southeast-1')
+              }
         }
       }
     }
-     
   }
   post {
     always {
-      //sendNotification(currentBuild.result)
-      echo "test"
+      sendNotification(currentBuild.result)
     }
-  }
-  environment {
-    ORG = 'ibexlabs'
   }
 }
