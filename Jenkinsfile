@@ -1,7 +1,7 @@
 pipeline {
   agent {
     docker {
-      image 'aws-assume-role'
+      image 'nodejs-aws'
     }
 
   }
