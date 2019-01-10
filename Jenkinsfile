@@ -5,14 +5,10 @@ pipeline {
     }
 
   }
-  properties([
-      ENV_NAME = "['dev','qa','staging']"
-      SCHEMA_NAME = "['test1.json','test2.json']"
-      parameters([
-        choice(name: 'ENV_NAME', choices: ENV_NAME, description: 'Select environment to import data'),
-        choice(name: 'SCHEMA_NAME', choices: SCHEMA_NAME, description: 'Select schema file used to import')
-      ])
-  ])
+  parameters {
+        choice(name: 'ENV_NAME', choices: ['dev','qa','staging'], description: 'Select environment to import data')
+        choice(name: 'SCHEMA_NAME', choices: ['test.json','test2.json'], description: 'Select schema file used to import')
+  }
   environment {
       USER_ID = '5EE0E3C-146Z-7646-CCEE-A0EDX2760869'
       REPOS = '/home/test'
