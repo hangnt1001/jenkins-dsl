@@ -20,7 +20,7 @@ pipeline {
         branch 'master'
       }
       steps {
-        importDatToAPI(ENV_NAME: "${params.ENV_NAME}",SCHEMA_NAME: "${params.SCHEMA_NAME}")
+        importDataToAPI(ENV_NAME: "${params.ENV_NAME}",SCHEMA_NAME: "${params.SCHEMA_NAME}")
       }
     }
   }
