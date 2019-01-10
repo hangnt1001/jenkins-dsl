@@ -6,8 +6,8 @@ pipeline {
 
   }
   parameters {
-      choice(name: 'ENV_NAME', choices: ENVS, description: 'Select environment to import data')
-      choice(name: 'SCHEMA_NAME', choices: SCHEMA_NAME, description: 'Select schema file used to import')
+      choice(name: 'ENV_NAME', choices: $ENVS, description: 'Select environment to import data')
+      choice(name: 'SCHEMA_NAME', choices: $SCHEMA_NAME, description: 'Select schema file used to import')
   }
   environment {
       USER_ID = '5EE0E3C-146Z-7646-CCEE-A0EDX2760869'
